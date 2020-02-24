@@ -4,7 +4,64 @@
         <meta charset="utf-8">
         <title>ファイル名変換</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>ファイル名変換</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>ファイル名変換</h1>
+        </header>
+        <div class="content">
+            <div id="dragDropArea">
+                <div class="drag-drop-inside">
+                    <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
+                    <p>または</p>
+                    <p class="drag-drop-buttons"><input id="fileInput" type="file" value="ファイルを選択" name="image" multiple></p>
+                </div>
+            </div>
+            <div id="executionArea">
+                <div class="form-group">
+                    <label for="select-name">ソート基準:</label>
+                    <select id="sort-type" name="sortType" class="form-control">
+                        <option value="lastModified">最終更新日</option>
+                        <option value="size">サイズ</option>
+                        <option value="type">タイプ</option>
+                        <option value="name">名前</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file-name">ファイルの名前</label>
+                    <input type="text" id="name-text" class="form-control">
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" class="check" value="three-digits">番号を三桁の数字にする</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" class="check" value="no-underscore">アンダースコアを間に入れない</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" class="check" value="descending-order">降順で並び変える</label>
+                </div>
+                <div class="attention">
+                    <p class="attention">※基本的にファイル名は<strong>「入力したファイル名_番号.png/jpg」</strong>で保存されます。</p>
+                    <p class="attention">※ファイルは<strong>png/jpg</strong>形式を選択してください。</p>
+                </div>
+                <div>
+                    <button id="execute" type="button" class="btn btn-primary btn-block">zipファイルでダウンロード</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+        <script src="files.js"></script>
+    </body>
+</html>.css">
     </head>
     <body>
         <div class="content">
