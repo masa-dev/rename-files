@@ -118,6 +118,6 @@ btn.addEventListener('click', function() {
     //zipファイル作成
     zip.generateAsync({type:'blob'}).then(function(content) {
         //see FileSaver.js
-        saveAs(content, 'sample.zip');
+        saveAs(content, 'images.zip');
     });
 }, false);
