@@ -1,9 +1,8 @@
 h1{
     font-size: 30px;
     text-align: center;
-    margin: 0 auto;
     font-weight: bold;
-    margin: 10px 0px;
+    margin: 10px auto;
 }
 div.content{
     width: 500px;
@@ -43,4 +42,19 @@ p.attention{
     color: #999;
     font-size: small;
     margin-bottom: 5px;
+}
+
+@media screen and (max-width: 600px){
+    html{
+        touch-action: manipulation;
+    }
+    h1{
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
+    div.content{
+        width:100%;
+        padding: 0px 10px;
+    }
+    
 }
