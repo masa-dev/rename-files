@@ -32,6 +32,9 @@ div.content{
     margin: auto;
 }
 
+div#executionArea{
+    margin-bottom: 15px;
+}
 p.select-title{
     margin: 0 auto;
 }
@@ -42,6 +45,10 @@ p.attention{
     color: #999;
     font-size: small;
     margin-bottom: 5px;
+}
+label{
+    margin-top: 8px;
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 600px){

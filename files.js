@@ -65,7 +65,8 @@ btn.addEventListener('click', function() {
     }
     
     let sortType = document.getElementById('sort-type').value;
-    let fileName = document.getElementById('name-text');
+    let fileName = document.getElementById('name-text').value;
+    let startNum = document.getElementById('start-number').value;
     let checkBox = document.getElementsByClassName('check');//[0]が三桁の数字化, [1]がアンダースコアなし, [2]が降順
     let underScore = '_';
     //アンダースコアを入れない処理
@@ -107,12 +108,13 @@ btn.addEventListener('click', function() {
     let num;    //ファイルの番号
     for(let i = 0; i < files.length; i++) {
         //番号を三桁にする処理をする
-        num = threeDigits(checkBox[0].checked, i);
+        num = parseInt(i,10) + parseInt(startNum,10);
+        num = threeDigits(checkBox[0].checked, num);
         if(files[i].type == 'image/png') {
-            zip.file(fileName.value + underScore + num + '.png', files[fileInfo[i].number], {base64: true});
+            zip.file(fileName + underScore + num + '.png', files[fileInfo[i].number], {base64: true});
         }
         else if(files[i].type == 'image/jpeg') {
-            zip.file(fileName.value + underScore + num + '.jpg', files[fileInfo[i].number], {base64: true});
+            zip.file(fileName + underScore + num + '.jpg', files[fileInfo[i].number], {base64: true});
         }
     }
     //zipファイル作成
