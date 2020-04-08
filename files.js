@@ -31,8 +31,8 @@ function threeDigits(value, i) {
 }
 
 //メインコード
-let fileArea = document.getElementById('dragDropArea');
-let fileInput = document.getElementById('fileInput');
+let fileArea = document.getElementById('drag-drop-area');
+let fileInput = document.getElementById('file-input');
 let btn = document.getElementById('execute');
 let droppedFiles;  //画像ファイルを格納する変数
 
@@ -57,12 +57,12 @@ btn.addEventListener('click', function() {
     let tempFiles;
     //ファイルが選択されていないとき
     if(droppedFiles == null) {
-        if(document.getElementById('fileInput').files[0] == null){
+        if(document.getElementById('file-input').files[0] == null){
             window.alert('ファイルが選択されていません');
             return;
         }
         else{
-            tempFiles = document.getElementById('fileInput').files;
+            tempFiles = document.getElementById('file-input').files;
         }
     }
     else {

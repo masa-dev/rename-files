@@ -8,7 +8,7 @@ div.content{
     width: 500px;
     margin: auto;
 }
-#dragDropArea{
+#drag-drop-area{
     background-color: #f4f4f4;
     margin: 10px;
     padding: 10px;
@@ -17,13 +17,13 @@ div.content{
     min-height: 200px;
     text-align: center;
   }
-  #dragDropArea p{
+  #drag-drop-area p{
     color: #999;
     font-weight: bold;
     font-size: 14px;
     font-size: 1.4em;
   }
-#dragDropArea .drag-drop-buttons{
+#drag-drop-area .drag-drop-buttons{
     margin-top: 20px;
     font-size: 12px;
     font-size: 1.2em;
@@ -63,7 +63,7 @@ label{
         width:100%;
         padding: 0px 10px;
     }
-    #dragDropArea p{
+    #drag-drop-area p{
         font-size: 1.3em;
     }
     input{
