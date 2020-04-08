@@ -34,7 +34,7 @@ function threeDigits(value, i) {
 let fileArea = document.getElementById('dragDropArea');
 let fileInput = document.getElementById('fileInput');
 let btn = document.getElementById('execute');
-let files;  //画像ファイルを格納する変数
+let droppedFiles;  //画像ファイルを格納する変数
 
 fileArea.addEventListener('dragover', function(evt){
     evt.preventDefault();
@@ -48,20 +48,25 @@ fileArea.addEventListener('dragleave', function(evt){
 fileArea.addEventListener('drop', function(evt){
     evt.preventDefault();
     fileArea.classList.remove('dragenter');
-    //このfilesに画像データが入る
-    files = evt.dataTransfer.files;
-    fileInput.files = files;
+    //このdroppedFilesに画像データが入る
+    droppedFiles = evt.dataTransfer.files;
+    fileInput.files = droppedFiles;
 });
 
 btn.addEventListener('click', function() {
+    let tempFiles;
     //ファイルが選択されていないとき
-    if(files == null) {
+    if(droppedFiles == null) {
         if(document.getElementById('fileInput').files[0] == null){
+            window.alert('ファイルが選択されていません');
             return;
         }
         else{
-            files = document.getElementById('fileInput').files;
+            tempFiles = document.getElementById('fileInput').files;
         }
+    }
+    else {
+        tempFiles = droppedFiles;
     }
     
     let sortType = document.getElementById('sort-type').value;
@@ -76,8 +81,8 @@ btn.addEventListener('click', function() {
 
     let fileInfo = [];
     //初期化
-    for(let i = 0; i < files.length; i++) {
-        fileInfo[i] = new singleFileInfo(i, files[i].name, files[i].lastModified, files[i].size, files[i].type);
+    for(let i = 0; i < tempFiles.length; i++) {
+        fileInfo[i] = new singleFileInfo(i, tempFiles[i].name, tempFiles[i].lastModified, tempFiles[i].size, tempFiles[i].type);
     }
 
     //sortTypeでソート
@@ -106,15 +111,15 @@ btn.addEventListener('click', function() {
     //zipでダウンロード
     let zip = new JSZip();
     let num;    //ファイルの番号
-    for(let i = 0; i < files.length; i++) {
+    for(let i = 0; i < tempFiles.length; i++) {
         //番号を三桁にする処理をする
         num = parseInt(i,10) + parseInt(startNum,10);
         num = threeDigits(checkBox[0].checked, num);
-        if(files[i].type == 'image/png') {
-            zip.file(fileName + underScore + num + '.png', files[fileInfo[i].number], {base64: true});
+        if(tempFiles[i].type == 'image/png') {
+            zip.file(fileName + underScore + num + '.png', tempFiles[fileInfo[i].number], {base64: true});
         }
-        else if(files[i].type == 'image/jpeg') {
-            zip.file(fileName + underScore + num + '.jpg', files[fileInfo[i].number], {base64: true});
+        else if(tempFiles[i].type == 'image/jpeg') {
+            zip.file(fileName + underScore + num + '.jpg', tempFiles[fileInfo[i].number], {base64: true});
         }
     }
     //zipファイル作成
