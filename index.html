@@ -1,63 +1,76 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>ファイル名変換</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header>
-            <h1>ファイル名変換</h1>
-        </header>
-        <div class="content">
-            <div id="drag-drop-area">
-                <div class="drag-drop-inside">
-                    <p class="drag-drop-info">ここに画像ファイルをドロップ</p>
-                    <p>または</p>
-                    <p class="drag-drop-buttons"><input id="file-input" type="file" value="ファイルを選択" name="image" multiple></p>
-                </div>
-            </div>
-            <div id="executionArea">
-                <div class="form-group">
-                    <label for="select-name">ソート基準:</label>
-                    <select id="sort-type" name="sortType" class="form-control">
-                        <option value="lastModified">最終更新日</option>
-                        <option value="size">サイズ</option>
-                        <option value="type">タイプ</option>
-                        <option value="name">名前</option>
-                    </select>
-                    <label for="file-name">ファイルの名前</label>
-                    <input type="text" id="name-text" class="form-control">
-                    <label for="start-number">開始番号</label>
-                    <input type="number" id="start-number" class="form-control" value="0" placeholder="0~…">
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" class="check" value="three-digits">番号を三桁の数字にする</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" class="check" value="no-underscore">アンダースコアを間に入れない</label>
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" class="check" value="descending-order">降順で並び変える</label>
-                </div>
-                <div class="attention">
-                    <p class="attention">※基本的にファイル名は<strong>「入力したファイル名_番号.png/jpg」</strong>で保存されます。</p>
-                    <p class="attention">※ファイルは<strong>png/jpg</strong>形式を選択してください。</p>
-                </div>
-                <div>
-                    <button id="execute" type="button" class="btn btn-primary btn-block">zipファイルでダウンロード</button>
-                </div>
-            </div>
-        </div>
-        <!-- Bootstrap -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <!-- Bootstrap -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
-        <script src="files.js"></script>
-    </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ファイル名変換</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>ファイル名変換</h1>
+  </header>
+  <div class="content">
+    <div id="drag-drop-area">
+      <div class="drag-drop-inside">
+        <p>ここに画像ファイルをドロップ</p>
+        <p>または</p>
+        <p>ここをクリックして選択</p>
+        <p class="drag-drop-buttons"><input id="file-input" type="file" name="image" multiple></p>
+      </div>
+    </div>
+    <div id="executionArea">
+      <div class="form-group">
+        <label for="select-name">ソート基準:</label>
+        <select id="sort-type" name="sortType" class="form-control">
+          <option value="lastModified">最終更新日</option>
+          <option value="size">サイズ</option>
+          <option value="type">タイプ</option>
+          <option value="name">名前</option>
+        </select>
+        <label for="file-name">ファイルの名前</label>
+        <input type="text" id="name-text" class="form-control">
+        <label for="start-number">開始番号</label>
+        <input type="number" id="start-number" class="form-control" value="0" placeholder="0~…">
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="check" value="three-digits">番号を三桁の数字にする</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="check" value="no-underscore">アンダースコアを間に入れない</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" class="check" value="descending-order">降順で並び変える</label>
+      </div>
+      <div class="attention">
+        <p class="attention">※基本的にファイル名は<strong>「入力したファイル名_番号.png/jpg」</strong>で保存されます。</p>
+        <p class="attention">※ファイルは<strong>png/jpg</strong>形式を選択してください。</p>
+      </div>
+      <div>
+        <button id="execute" type="button" class="btn btn-primary btn-block">zipファイルでダウンロード</button>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.2/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+  <script src="files.js"></script>
+</body>
+
 </html>

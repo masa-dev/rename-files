@@ -1,72 +1,84 @@
-h1{
+h1 {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
     margin: 10px auto;
 }
-div.content{
+
+div.content {
     width: 500px;
     margin: auto;
 }
-#drag-drop-area{
+
+#drag-drop-area {
     background-color: #f4f4f4;
-    margin: 10px;
+    margin: 10px 20px;
     padding: 10px;
     border: #ddd dashed 5px;
     border-radius: 15px;
-    min-height: 200px;
+    min-height: 150px;
     text-align: center;
-  }
-  #drag-drop-area p{
+    /*クリックが分かるようにする*/
+    cursor: pointer;
+}
+
+#drag-drop-area p {
     color: #999;
     font-weight: bold;
     font-size: 14px;
     font-size: 1.4em;
-  }
-#drag-drop-area .drag-drop-buttons{
+}
+
+#drag-drop-area .drag-drop-buttons {
     margin-top: 20px;
     font-size: 12px;
     font-size: 1.2em;
 }
-.drag-drop-buttons input{
+
+.drag-drop-buttons input {
     margin: auto;
+    display: none;
 }
 
-div#executionArea{
+div#executionArea {
     margin-bottom: 15px;
 }
-p.select-title{
+
+p.select-title {
     margin: 0 auto;
 }
-div.attention{
+
+div.attention {
     margin-bottom: 20px;
 }
-p.attention{
+
+p.attention {
     color: #999;
     font-size: small;
     margin-bottom: 5px;
 }
-label{
+
+label {
     margin-top: 8px;
     margin-bottom: 0px;
 }
 
-@media screen and (max-width: 600px){
-    html{
+@media screen and (max-width: 600px) {
+    html {
         touch-action: manipulation;
     }
-    h1{
+    h1 {
         margin-top: 5px;
         margin-bottom: 0px;
     }
-    div.content{
-        width:100%;
+    div.content {
+        width: 100%;
         padding: 0px 10px;
     }
-    #drag-drop-area p{
+    #drag-drop-area p {
         font-size: 1.3em;
     }
-    input{
+    input {
         font-size: medium;
     }
 }

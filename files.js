@@ -11,21 +11,21 @@ class singleFileInfo {
 
 //数字を三桁にする関数
 function threeDigits(value, i) {
-    if(value ==true) {
-        if(i == 0) {
+    if (value == true) {
+        if (i == 0) {
             return '000';
         }
-        else if(i < 10) {
-            return '00'+i;
+        else if (i < 10) {
+            return '00' + i;
         }
-        else if(i <100) {
-            return '0'+i;
+        else if (i < 100) {
+            return '0' + i;
         }
         else {
             return i;
         }
     }
-    else if(value == false){
+    else if (value == false) {
         return i;
     }
 }
@@ -36,16 +36,16 @@ let fileInput = document.getElementById('file-input');
 let btn = document.getElementById('execute');
 let droppedFiles;  //画像ファイルを格納する変数
 
-fileArea.addEventListener('dragover', function(evt){
+fileArea.addEventListener('dragover', function (evt) {
     evt.preventDefault();
     fileArea.classList.add('dragover');
 });
-fileArea.addEventListener('dragleave', function(evt){
+fileArea.addEventListener('dragleave', function (evt) {
     evt.preventDefault();
     fileArea.classList.remove('dragover');
 });
 
-fileArea.addEventListener('drop', function(evt){
+fileArea.addEventListener('drop', function (evt) {
     evt.preventDefault();
     fileArea.classList.remove('dragenter');
     //このdroppedFilesに画像データが入る
@@ -53,43 +53,71 @@ fileArea.addEventListener('drop', function(evt){
     fileInput.files = droppedFiles;
 });
 
-btn.addEventListener('click', function() {
+$(function () {
+    //ホバーで色変更
+    $('#drag-drop-area').on('mouseenter', function () {
+        //キューを消除
+        $(this).stop(true, true);
+        $(this).animate({
+            backgroundColor: '#ecfaef',
+            borderColor: '#90eba5'
+        }, 200);
+    })
+    $('#drag-drop-area').on('mouseleave', function () {
+        //キューを削除
+        $(this).stop(true, true);
+        $(this).animate({
+            backgroundColor: '#f4f4f4',
+            borderColor: '#ddd'
+        }, 200);
+    })
+
+    $('#drag-drop-area').click(function () {
+        $('#file-input').trigger('click');
+    });
+    //親要素をクリックしたときに子要素のイベントを停止する
+    $('#file-input').on('click', function (e) {
+        e.stopPropagation();
+    })
+});
+
+btn.addEventListener('click', function () {
     let tempFiles;
     //ファイルが選択されていないとき
-    if(droppedFiles == null) {
-        if(document.getElementById('file-input').files[0] == null){
+    if (droppedFiles == null) {
+        if (document.getElementById('file-input').files[0] == null) {
             window.alert('ファイルが選択されていません');
             return;
         }
-        else{
+        else {
             tempFiles = document.getElementById('file-input').files;
         }
     }
     else {
         tempFiles = droppedFiles;
     }
-    
+
     let sortType = document.getElementById('sort-type').value;
     let fileName = document.getElementById('name-text').value;
     let startNum = document.getElementById('start-number').value;
     let checkBox = document.getElementsByClassName('check');//[0]が三桁の数字化, [1]がアンダースコアなし, [2]が降順
     let underScore = '_';
     //アンダースコアを入れない処理
-    if(checkBox[1].checked){
+    if (checkBox[1].checked) {
         underScore = '';
     }
 
     let fileInfo = [];
     //初期化
-    for(let i = 0; i < tempFiles.length; i++) {
+    for (let i = 0; i < tempFiles.length; i++) {
         fileInfo[i] = new singleFileInfo(i, tempFiles[i].name, tempFiles[i].lastModified, tempFiles[i].size, tempFiles[i].type);
     }
 
     //sortTypeでソート
     //checkBoxで降順が指定されている場合とどうかで処理を分ける
-    if(checkBox[2].checked == true) {
+    if (checkBox[2].checked == true) {
         //降順
-        fileInfo.sort(function(a, b) {
+        fileInfo.sort(function (a, b) {
             if (a[sortType] < b[sortType]) {    //プロパティとして変数の値を読むためにブラケット演算子を使う
                 return 1;
             } else {
@@ -97,9 +125,9 @@ btn.addEventListener('click', function() {
             }
         });
     }
-    else if(checkBox[2].checked == false) {
+    else if (checkBox[2].checked == false) {
         //昇順
-        fileInfo.sort(function(a, b) {
+        fileInfo.sort(function (a, b) {
             if (a[sortType] > b[sortType]) {    //変数の値を読むためにブラケット演算子を使う
                 return 1;
             } else {
@@ -111,19 +139,19 @@ btn.addEventListener('click', function() {
     //zipでダウンロード
     let zip = new JSZip();
     let num;    //ファイルの番号
-    for(let i = 0; i < tempFiles.length; i++) {
+    for (let i = 0; i < tempFiles.length; i++) {
         //番号を三桁にする処理をする
-        num = parseInt(i,10) + parseInt(startNum,10);
+        num = parseInt(i, 10) + parseInt(startNum, 10);
         num = threeDigits(checkBox[0].checked, num);
-        if(tempFiles[i].type == 'image/png') {
-            zip.file(fileName + underScore + num + '.png', tempFiles[fileInfo[i].number], {base64: true});
+        if (tempFiles[i].type == 'image/png') {
+            zip.file(fileName + underScore + num + '.png', tempFiles[fileInfo[i].number], { base64: true });
         }
-        else if(tempFiles[i].type == 'image/jpeg') {
-            zip.file(fileName + underScore + num + '.jpg', tempFiles[fileInfo[i].number], {base64: true});
+        else if (tempFiles[i].type == 'image/jpeg') {
+            zip.file(fileName + underScore + num + '.jpg', tempFiles[fileInfo[i].number], { base64: true });
         }
     }
     //zipファイル作成
-    zip.generateAsync({type:'blob'}).then(function(content) {
+    zip.generateAsync({ type: 'blob' }).then(function (content) {
         //see FileSaver.js
         saveAs(content, 'images.zip');
     });
