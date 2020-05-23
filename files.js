@@ -68,7 +68,7 @@ btn.addEventListener('click', function() {
     else {
         tempFiles = droppedFiles;
     }
-    
+
     let sortType = document.getElementById('sort-type').value;
     let fileName = document.getElementById('name-text').value;
     let startNum = document.getElementById('start-number').value;
@@ -84,6 +84,9 @@ btn.addEventListener('click', function() {
     for(let i = 0; i < tempFiles.length; i++) {
         fileInfo[i] = new singleFileInfo(i, tempFiles[i].name, tempFiles[i].lastModified, tempFiles[i].size, tempFiles[i].type);
     }
+
+    console.log(fileInfo)
+    console.log(tempFiles)
 
     //sortTypeでソート
     //checkBoxで降順が指定されている場合とどうかで処理を分ける
@@ -115,10 +118,10 @@ btn.addEventListener('click', function() {
         //番号を三桁にする処理をする
         num = parseInt(i,10) + parseInt(startNum,10);
         num = threeDigits(checkBox[0].checked, num);
-        if(tempFiles[i].type == 'image/png') {
+        if(fileInfo[i].type == 'image/png') {
             zip.file(fileName + underScore + num + '.png', tempFiles[fileInfo[i].number], {base64: true});
         }
-        else if(tempFiles[i].type == 'image/jpeg') {
+        else if(fileInfo[i].type == 'image/jpeg') {
             zip.file(fileName + underScore + num + '.jpg', tempFiles[fileInfo[i].number], {base64: true});
         }
     }
