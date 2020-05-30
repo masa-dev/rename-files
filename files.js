@@ -30,6 +30,15 @@ function threeDigits(value, i) {
     }
 }
 
+function numberReplacer(match) {
+    let num = match;
+    const numLength = String(match).length;
+    for(let i = 0; i < 20-numLength; i++) {
+        num = '0' + num;
+    }
+    return num;
+}
+
 //メインコード
 let fileArea = document.getElementById('drag-drop-area');
 let fileInput = document.getElementById('file-input');
@@ -85,8 +94,9 @@ btn.addEventListener('click', function() {
         fileInfo[i] = new singleFileInfo(i, tempFiles[i].name, tempFiles[i].lastModified, tempFiles[i].size, tempFiles[i].type);
     }
 
-    console.log(fileInfo)
-    console.log(tempFiles)
+    for(let i = 0; i < fileInfo.length; i++) {
+        fileInfo[i].name = fileInfo[i].name.replace(/[0-9]+/g, numberReplacer);
+    }
 
     //sortTypeでソート
     //checkBoxで降順が指定されている場合とどうかで処理を分ける
