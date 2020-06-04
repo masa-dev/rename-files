@@ -96,6 +96,7 @@ btn.addEventListener('click', function() {
 
     for(let i = 0; i < fileInfo.length; i++) {
         fileInfo[i].name = fileInfo[i].name.replace(/[0-9]+/g, numberReplacer);
+        fileInfo[i].name = fileInfo[i].name.replace(/(.png|.jpg|.jpg)/g, '');
     }
 
     //sortTypeでソート
