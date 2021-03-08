@@ -60,6 +60,19 @@ label {
     margin-bottom: 0px;
 }
 
+#load-image>img#loading {
+    width: 60px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
+}
+
+#load-image>span#comments {
+    position: fixed;
+    top: 0px;
+    left: 65px;
+}
+
 @media screen and (max-width: 600px) {
     html {
         touch-action: manipulation;
@@ -68,7 +81,7 @@ label {
         margin-top: 5px;
         margin-bottom: 0px;
     }
-    div.content {
+    main {
         width: 100%;
         padding: 0px 10px;
     }
@@ -77,5 +90,8 @@ label {
     }
     input {
         font-size: medium;
+    }
+    #load-image>img#loading {
+        width: 45px;
     }
 }
