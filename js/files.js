@@ -77,6 +77,10 @@ fileArea.addEventListener('drop', function (evt) {
   fileInput.files = droppedFiles;
 });
 
+// 起動時にlocalStorageから設定を取得
+window.onload = function () {
+  fetchConfigToLS();
+}
 
 btn.addEventListener('click', function () {
   let tempFiles;
@@ -98,12 +102,10 @@ btn.addEventListener('click', function () {
   displayLoadingAnimation('parrot', 'Processing...');
 
   //設定の反映
-  config.sortType = document.getElementById('sort-type').value;
-  config.frontName = document.getElementById('name-text').value;
-  config.startNumber = parseInt(document.getElementById('start-number').value, 10);
-  config.threeDigitization = document.getElementsByClassName('check')[0].checked;
-  config.noUnderscore = document.getElementsByClassName('check')[1].checked;
-  config.descendingOrder = document.getElementsByClassName('check')[2].checked;
+  getConfig();
+
+  // ローカルストレージに反映
+  saveConfigToLS()
 
   let underScore = '_';
   //アンダースコアを入れない処理
