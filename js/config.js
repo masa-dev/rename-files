@@ -18,9 +18,9 @@ function saveConfigToLS() {
 
 function fetchConfigToLS() {
     let configJson = localStorage.getItem(LOCAL_STORAGE_ID);
-    config = JSON.parse(configJson);
 
     if (configJson) {
+        config = JSON.parse(configJson);
         setInputs();
     }
 }
